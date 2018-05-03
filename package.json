@@ -5,7 +5,8 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "homepage": "https://jefferyclanton.github.io/jamming/"
   },
   "scripts": {
     "start": "react-scripts start",
