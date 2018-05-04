@@ -8,8 +8,22 @@ import Playlist from './Components/Playlist/Playlist';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {searchResults: [{name: ''}, {artist: ''}, {album: ''}, {id: ''}]};
+    this.state = {
+      searchResults: [],
+      playlistName: 'Playlist',
+      playlistTracks: []
+    }
+    this.addTrack = this.addTrack.bind(this);
   }
+
+addTrack(track) {
+  if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+  console.log('Already in Playlist');
+} else {
+  this.state.playlistTracks.push(track);
+}
+}
+
   render() {
     return (
       <div>
@@ -17,8 +31,8 @@ class App extends Component {
   <div className="App">
     <SearchBar />
     <div className="App-playlist">
-      <SearchResults searchResults={this.state.searchResults} />
-      <Playlist />
+      <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+      <Playlist playlistName={playlistName} playlistTracks={playlistTracks} />
     </div>
   </div>
 
