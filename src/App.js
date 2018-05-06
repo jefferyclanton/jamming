@@ -21,18 +21,26 @@ addTrack(track) {
   console.log('Already in Playlist');
 } else {
   this.state.playlistTracks.push(track);
+  }
 }
+
+removeTrack(track) {
+
 }
 
   render() {
     return (
       <div>
   <h1>Ja<span className="highlight">mmm</span>ing</h1>
+
   <div className="App">
     <SearchBar />
+
     <div className="App-playlist">
-      <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-      <Playlist playlistName={playlistName} playlistTracks={playlistTracks} />
+      <SearchResults searchResults={this.state.searchResults}
+                                    onAdd={this.addTrack}/>
+      <Playlist playlistName={this.state.playlistName}
+                playlistTracks={this.state.playlistTracks} />
     </div>
   </div>
 
