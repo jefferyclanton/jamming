@@ -6,11 +6,17 @@ class Track extends React.Component {
     super(props);
 
     this.renderAction = this.renderAction.bind(this);
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   renderAction() {
-    (this.props.isRemoval===false) ? '+' : '-';
-  }
+    if (this.props.isRemoval===false) {
+    return <a onClick={this.addTrack}>+</a>;
+  } else {
+     return <a onClick={this.removeTrack}>-</a>;
+   }
+ }
 
   addTrack() {
     if (this.props.isRemoval === false) {
@@ -18,6 +24,10 @@ class Track extends React.Component {
    } else {
      this.props.onRemove(this.props.track);
    }
+ }
+
+ removeTrack(track) {
+   return this.props.track.splice(track);
  }
 
   render () {
