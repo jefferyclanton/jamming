@@ -18,9 +18,9 @@ class Spotify extends React.Component {
     }
   }
 
-  window.location.href = redirectUri.match(/access_token=([^&]*)/
+  window.location.href.match(/access_token=([^&]*)/
 /expires_in=([^&]*)/);
-  const expiresIn = window.location.href.match(/expires_in=([^&]*)/);
+  window.location.href.match(/expires_in=([^&]*)/);
 
 if (matchToken && expiresIn) {
   const expiration = expiresIn[1];
