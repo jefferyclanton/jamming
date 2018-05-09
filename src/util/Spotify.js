@@ -4,12 +4,24 @@ let accessToken;
 
 const clientId = 'e79bdf9a3d3744af8f433500ffa32cd4';
 const redirectUri = 'http://localhost:3000/';
-
+const userId = '';
 class Spotify extends React.Component {
   constructor(props) {
     super(props)
 
     this.getAccessToken = this.getAccessToken.bind(this);
+  }
+
+  Spotify = {
+  startAuthorization() {
+    console.log('authorization');
+    let url =
+      'https://accounts.spotify.com/authorize' +
+      '?response_type=token' +
+      '&client_id=' + clientId +
+      '&redirect_uri=' + redirectUri;
+      window.location = url;
+    }
   }
 
   getAccessToken() {
@@ -51,7 +63,36 @@ search(searchTerm) {
   }));
 })
 }
+
+savePlaylist(name, userTrack) {
+  if (!name || !userTrack.length) {
+    return;
+  }
+  let currentToken = this.accessToken;
+  let headers =  {
+    Authorization: `Bearer ${accessToken}`
+  }
+  fetch('https://api.spotify.com/v1/me', {
+    Authorization: `Bearer ${accessToken}`
+  }).then(response => {
+    return response.json();
+    userId === response.id;
+  })
+
+  fetch( 'https://api.spotify.com/v1/me', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "name": name
+      })
+  }).then(response => {
+  let playlistId = response.id;
+})
 }
 
+}
 
 export default Spotify;

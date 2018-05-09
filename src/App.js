@@ -13,7 +13,7 @@ class App extends Component {
     super(props)
     this.state = {
       searchResults: [],
-      playlistName: 'Playlist',
+      playlistName: 'Playlist Name',
       playlistTracks: []
     }
 
@@ -47,11 +47,13 @@ updatePlaylistName(name) {
 }
 
 savePlaylist(trackURIs) {
-  trackURIs = [this.state.playlistTracks];
+  trackURIs = [this.Spotify.savePlaylist()];
 }
 
 search(userInput) {
-  console.log(userInput);
+  Spotify.search(userInput).then(songs => {
+    this.setState({searchResults: songs});
+  })
 }
 
 //JSX elements to render to browser
