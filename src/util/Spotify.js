@@ -2,17 +2,11 @@ import React from 'react';
 
 let accessToken;
 
-const clientId = 'e79bdf9a3d3744af8f433500ffa32cd4';
+const clientId = '12e337ae161f4f5fbb48d1eefcaa2db7';
 const redirectUri = 'http://localhost:3000/';
 const userId = '';
-class Spotify extends React.Component {
-  constructor(props) {
-    super(props)
 
-    this.getAccessToken = this.getAccessToken.bind(this);
-  }
-
-  Spotify = {
+const Spotify = {
   startAuthorization() {
     console.log('authorization');
     let url =
@@ -21,12 +15,14 @@ class Spotify extends React.Component {
       '&client_id=' + clientId +
       '&redirect_uri=' + redirectUri;
       window.location = url;
-    }
-  }
+    },
 
   getAccessToken() {
     if(accessToken) {
       return accessToken;
+    } else {
+      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+      window.location = accessUrl;
     }
 
     const matchToken  = window.location.href.match(/access_token=([^&]*)/);
@@ -41,13 +37,13 @@ window.history.pushState('Access Token', null, '/');
 
   return accessToken;
 } else {
-  window.location = 'https://accounts.spotify.com/authorize?client_id=${clientId} &response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}';
+  window.location = `https://accounts.spotify.com/authorize?client_id=${clientId} &response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
 }
-}
+},
 
 search(searchTerm) {
-  accessToken = Spotify.getAccessToken();
-  return fetch('https://api.spotify.com/v1/search?type=track&q= ${searchTerm}', {
+  const accessToken = Spotify.getAccessToken();
+  return fetch(`https://api.spotify.com/v1/search?type=track&q= ${searchTerm}`, {
     headers:  {
       Authorization: `Bearer ${accessToken}`
     }
@@ -62,7 +58,7 @@ search(searchTerm) {
     uri: track.uri
   }));
 })
-}
+},
 
 savePlaylist(name, userTrack) {
   if (!name || !userTrack.length) {
