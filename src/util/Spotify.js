@@ -2,7 +2,6 @@ let accessToken;
 
 const clientId = '12e337ae161f4f5fbb48d1eefcaa2db7';
 const redirectUri = 'http://localhost:3000';
-const userId = '';
 
 const Spotify = {
   startAuthorization() {
@@ -67,9 +66,9 @@ savePlaylist(name, userTrack) {
   fetch('https://api.spotify.com/v1/me', {
     headers: headers
   }).then(response => {
+    userId = response.id;
     return response.json();
-    this.userId === response.id;
-  }).then(fetch( 'https://api.spotify.com/v1/me', {
+  }).then(fetch( `https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -79,7 +78,8 @@ savePlaylist(name, userTrack) {
         "name": name
       })
   })).then(response => {
-  let playlistId = response.id;
+  let playlistId = userId;
+  console.log(playlistId);
 })
 }
 
