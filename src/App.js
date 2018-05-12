@@ -47,7 +47,7 @@ updatePlaylistName(name) {
 }
 
 savePlaylist(trackURIs) {
-  trackURIs = [this.Spotify.savePlaylist()];
+  trackURIs = [this.savePlaylist];
 }
 
 search(userInput) {
