@@ -54,7 +54,7 @@ savePlaylist() {
     this.setState({
       playlistName: 'New Playlist',
       playlistTracks: []
-    });
+    })
   });
 }
 
