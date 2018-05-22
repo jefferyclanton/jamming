@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './favicon.ico';
 import './App.css';
 import SearchBar from './Components/SearchBar/SearchBar';
@@ -28,26 +28,34 @@ class App extends React.Component {
 //Methods for adding and removing tracks
 //updating the playlist, and handling searches
 addTrack(track) {
-  if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-  console.log('Already in Playlist');
-} else {
-  this.state.playlistTracks.push(track);
-  }
-}
+    let tracks = this.state.playlistTracks;
+    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
+    }
 
-removeTrack(track) {
-  if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-  return this.state.playlistTracks.splice(track);
-}
-this.setState(this.state.playlistTracks);
-}
+    tracks.push(track);
+    this.setState({playlistTracks: tracks});
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+    this.setState({playlistTracks: tracks});
+  }
 
 updatePlaylistName(name) {
   this.setState({playlistName: name});
 }
 
-savePlaylist(trackURIs) {
-  trackURIs = [this.savePlaylist];
+savePlaylist() {
+  const trackUris = this.state.playlistTracks.map(track => track.uri);
+  Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+    this.setState({
+      playlistName: 'New Playlist',
+      playlistTracks: []
+    });
+  });
 }
 
 search(userInput) {
@@ -72,7 +80,7 @@ search(userInput) {
                 playlistTracks={this.state.playlistTracks}
                 onRemove={this.removeTrack}
                 onNameChange={this.updatePlaylistName}
-                onSave={this.savePlaylist} />
+                onSave={this.savePlaylist}/>
     </div>
   </div>
 
