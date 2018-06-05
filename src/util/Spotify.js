@@ -1,7 +1,7 @@
 let accessToken;
 
 const clientId = '12e337ae161f4f5fbb48d1eefcaa2db7';
-const redirectUri = 'http://localhost:3000';
+const redirectUri = 'http://whole-table.surge.sh';
 
 const Spotify = {
   startAuthorization() {
